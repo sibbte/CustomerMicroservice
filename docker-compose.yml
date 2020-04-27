@@ -9,19 +9,19 @@ services:
        MSSQL_PID: Express
     ports:
        - "1433:1433"
-    container_name: "ms-sql-server"
+    container_name: "ms-sql-server-ms"
     networks:
       - ms
 
-  customer_microservice:
+  customermicroservice:
     image: ${DOCKER_REGISTRY-}customermicroservice
     build:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 81
-    environment: 
-      - SERVICE_PORTS=80
+       - 81
+    environment:
+       - SERVICE_PORTS=80
     deploy:
      replicas: 2
      update_config:
@@ -33,9 +33,9 @@ services:
        window: 120s
     container_name: "customer_microservice"
     networks:
-      - ms
-
-  haproxy:
+       - ms
+   
+  proxy:
     image: dockercloud/haproxy
     ports: 
       - "80:80"
@@ -46,10 +46,11 @@ services:
         constraints: [node.role == manager]  
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    container_name: "haproxy"
+    container_name: "haproxy-ms"
     networks: 
       - ms
-  
-networks: 
+   
+networks:
   ms:
     driver: overlay
+     
