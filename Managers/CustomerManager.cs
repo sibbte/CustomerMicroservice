@@ -39,7 +39,7 @@ namespace CustomerMicroservice.Managers
 
         public IEnumerable<Customer> GetAllByName()
         {
-            return _context.Customers.Include(c => c.Cat).AsNoTracking().OrderBy(x => x.FirstName).OrderBy(x => x.LastName).ToList();
+            return _context.Customers.OrderBy(x => x.LastName).ToList();
         }
 
         public IEnumerable<Customer> GetByFirstName(string name)

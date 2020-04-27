@@ -14,5 +14,6 @@ namespace CustomerMicroservice.Models
         }
 
         public DbSet<Customer> Customers { get; set; }
+
     }
 }

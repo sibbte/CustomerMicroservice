@@ -26,6 +26,6 @@ namespace CustomerMicroservice.Models
         public string Email { get; set; }
         public int? Cats { get; set; }
         public string UserId { get; set; }
-        public virtual ICollection<Cat> Cat { get; set; }
+        //public virtual IEnumerable<Guid> Cat { get; set; }
     }
 }
