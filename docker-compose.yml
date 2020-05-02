@@ -1,7 +1,7 @@
 version: '3.4'
 
 services:
-  ms-sql-server:
+  ms-sql-server-ms:
     image: mcr.microsoft.com/mssql/server
     environment:
        ACCEPT_EULA: "Y"
@@ -35,7 +35,7 @@ services:
     networks:
        - ms
    
-  proxy:
+  proxy-ms:
     image: dockercloud/haproxy
     ports: 
       - "80:80"

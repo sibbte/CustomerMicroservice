@@ -117,10 +117,10 @@ namespace CustomerMicroservice.Controllers
 
             throw new DataException("error");
         }
-        /*// POST: Customer/Edit/5
+        // POST: Customer/Edit/5
         [HttpPatch]
         [Route("Api/Customer/Edit")]
-        public ActionResult Edit(Guid search, string fName, string lName, string teleNum, string mobNum, string address1, string address2, string town, string postcode, Users user, string email, List<Guid> cat)
+        public ActionResult Edit(Guid search, string fName, string lName, string teleNum, string mobNum, string address1, string address2, string town, string postcode, string user, string email)
         {
             Customer owner = new Customer()
             {
@@ -133,7 +133,7 @@ namespace CustomerMicroservice.Controllers
                 Address2 = address2.Trim(),
                 Town = town.Trim(),
                 Postcode = postcode.Trim(),
-                //User = user,
+                UserId = user,
                 Email = email.Trim()
 
             };
@@ -148,7 +148,7 @@ namespace CustomerMicroservice.Controllers
             }
             else if (ModelState.IsValid)
             {
-                customerManager.Update(search, owner);
+                customerManager.Update(owner);
             }
             return Ok(owner);
         }
@@ -163,9 +163,5 @@ namespace CustomerMicroservice.Controllers
             return Ok();
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            base.Dispose(disposing);
-        }*/
     }
 }
