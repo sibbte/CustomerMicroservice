@@ -18,11 +18,9 @@ services:
   customermicroservice:
     image: sibby91/customermicroservice
     ports:
-      - "5103:80"
+      - 81
     environment: 
       - SERVICE_PORTS=80
-    extra_hosts: 
-      - "customermicroservice:10.0.79.1"
     deploy:
      replicas: 2
      update_config:
