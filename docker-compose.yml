@@ -1,0 +1,59 @@
+version: '3.4'
+
+services:
+  ms-sql-server-ms:
+    image: mcr.microsoft.com/mssql/server
+    expose: 
+      - 1433
+    environment:
+       ACCEPT_EULA: "Y"
+       SA_PASSWORD: "StrongPassword???"
+       MSSQL_PID: Express
+    ports:
+       - "1433:1433"
+    container_name: "ms-sql-server-ms"
+    networks:
+      - ms
+
+  customermicroservice:
+    image: sibby91/customermicroservice
+    ports:
+      - "5103:80"
+    environment: 
+      - SERVICE_PORTS=80
+    extra_hosts: 
+      - "customermicroservice:10.0.79.1"
+    deploy:
+     replicas: 2
+     update_config:
+       parallelism: 5
+       delay: 10s
+     restart_policy:
+       condition: on-failure
+       max_attempts: 3
+       window: 120s
+    container_name: "customer_microservice"
+    networks:
+      - ms
+    depends_on: 
+      - ms-sql-server-ms
+
+  proxy-ms-2:
+    image: dockercloud/haproxy
+    ports: 
+      - "80:80"
+    environment: 
+      - BALANCE=leastconn
+    deploy:
+      placement:
+        constraints: [node.role == manager]  
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks: 
+      - ms
+    depends_on: 
+      - customermicroservice
+
+networks: 
+  ms:
+    driver: overlay
