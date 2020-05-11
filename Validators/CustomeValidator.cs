@@ -24,7 +24,7 @@ namespace CustomerMicroservice.Validators
             RuleFor(x => x.Address2).NotEmpty().WithMessage(customer => $"The Second Line Of the Address cant be empty {customer.Address2}.");
             RuleFor(x => x.Town).NotEmpty().MaximumLength(50).WithMessage(customer => $"{customer.Town} is more than 50 characters. Please enter correct UK town.");
             RuleFor(x => x.Postcode).NotEmpty().Matches(postcodeRegex).WithMessage(customer => $"{customer.Postcode} is not a valid Postcode. Please enter a valid Postcode");
-            //RuleFor(x => x.User).NotEmpty().WithMessage("Users Details must be provided");
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("Users Details must be provided");
             RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage(customer => $"{customer.Email} is not a valid email address. Please enter a valid email address.");
         }
     }
